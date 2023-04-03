@@ -7,4 +7,4 @@ Proposta do problema: Desenvolver um programa em Python de gerenciamento de pedi
 
 Feito por: André Gustavo Xavier dos Santos
 
-Os componentes da equipe são: André Gustavo Xavier dos Santos, Samuel Victor Avelino Araújo, Miguel Farias Ramos Araújo, Pedro Lucas Pires Lopes, Christhian Gabriel Carvalho Gonçalves, Marcus Fernando Santos Cuba e Emerson Costa Alves
+Os componentes da equipe são: André Gustavo Xavier dos Santos, Lucas Gabriel Pereira Pestana, Samuel Victor Avelino Araújo, Miguel Farias Ramos Araújo, Pedro Lucas Pires Lopes, Christhian Gabriel Carvalho Gonçalves, Marcus Fernando Santos Cuba e Emerson Costa Alves
