@@ -30,7 +30,7 @@ def registrar_pedido():
 # Para cada produto que não estiver no dicionário "produtos", o programa não vai reconhecer...
 
     while produto not in produtos:
-        produto = input("Produto não encontrado. Digite novamente o produto que foi pedido (refrigerante, hamburguer ou hot-dog): ")
+        produto = input("Produto não encontrado. Digite novamente o produto que foi pedido (refrigerante, hamburguer ou hot-dog): ").lower()
     
     quantidade = int(input("Digite a quantidade do produto que foi pedido: "))
     
