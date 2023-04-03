@@ -25,7 +25,7 @@ def registrar_pedido():
     
     for item, preco in produtos.items():
         print(f"Produtos: {item} - R${preco}")
-    produto = input("Digite o produto que foi pedido (refrigerante, hamburguer ou hot-dog): ")
+    produto = input("Digite o produto que foi pedido (refrigerante, hamburguer ou hot-dog): ").lower()
     
 # Para cada produto que não estiver no dicionário "produtos", o programa não vai reconhecer...
 
