@@ -14,9 +14,19 @@ produtos = {
     "hot-dog": 9.5
 }
 
+# Mostra a data e horas atuais com métodos today() e now()
+# Strptime = transforma uma string em um objeto datetime
+# %d, %m, %Y = diretivos
+
+def mostrar_hora():
+    from datetime import date, time, datetime
+    hoje = date.today().strftime('%d/%m/%Y')
+    agora = datetime.now().strftime('%d/%m/%Y %H: %M')
+    print(f'Dia em que a conta foi fechada: {hoje}')
+    print(f"Data e horas atuais da conta: {agora}")
+
 # Nessa parte, o atendente vai estar criando uma comanda. O programa vai pedir qual é o número da mesa que vai ser registrado, lembrando que estão disponíveis a mesa 1, mesa 2 e mesa 3. 
 # Se o atendente escreveu o número da mesa errado, ele vai pedir para digitar novamente.
-
 
 def registrar_pedido():
     mesa = int(input("Digite o número da mesa: "))
@@ -25,7 +35,7 @@ def registrar_pedido():
     
     for item, preco in produtos.items():
         print(f"Produtos: {item} - R${preco}")
-    produto = input("Digite o produto que foi pedido (refrigerante, hamburguer ou hot-dog): ").lower()
+    produto = input("Digite o produto que foi pedido (refrigerante, hamburguer ou hot-dog): ")
     
 # Para cada produto que não estiver no dicionário "produtos", o programa não vai reconhecer...
 
@@ -87,6 +97,7 @@ def fechar_conta():
     mesas[mesa]["total"] = 0
     
     print(f"Conta da mesa {mesa} fechada com sucesso.")
+    mostrar_hora()
 
 # Programa principal...
 
