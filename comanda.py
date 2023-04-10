@@ -1,10 +1,12 @@
 # Armazena o nome do pedido que o cliente escolhe e o total que ele vai pagar... No caso, são 3 mesas.
 
 mesas = {
-    1: {"pedido": {}, "total": 0},
-    2: {"pedido": {}, "total": 0},
-    3: {"pedido": {}, "total": 0}
+    1: {"pedido": {}, "total": 0, "pessoas": 0},
+    2: {"pedido": {}, "total": 0, "pessoas": 0},
+    3: {"pedido": {}, "total": 0, "pessoas": 0}
 }
+
+faturamento_total = 0
 
 # Tabela de preços dos produtos disponíveis no restaurante...
 
@@ -35,7 +37,11 @@ def registrar_pedido():
     
     for item, preco in produtos.items():
         print(f"Produtos: {item} - R${preco}")
-    produto = input("Digite o produto que foi pedido (refrigerante, hamburguer ou hot-dog): ")
+    produto = input("Digite o produto que foi pedido (refrigerante, hamburguer ou hot-dog): ").lower()
+
+    if not mesas[mesa]["pedido"]:
+        pessoas = int(input("Digite a quantidade de pessoas na mesa: "))
+        mesas[mesa]["pessoas"] = pessoas
     
 # Para cada produto que não estiver no dicionário "produtos", o programa não vai reconhecer...
 
@@ -67,9 +73,13 @@ def registrar_pedido():
 # Caso o cliente já queira encerrar a conta...
 
 def fechar_conta():
+    # Global = A variável faturamento_total pode ser acessada e modificada tanto dentro quanto fora da função fechar_conta()
+    global faturamento_total
     mesa = int(input("Digite o número da mesa para fechar a conta: "))
     while mesa not in mesas:
         mesa = int(input("Mesa não encontrada. Digite novamente o número da mesa: "))
+
+    faturamento_total += mesas[mesa]["total"]
     
 # Imprime os pedidos totais
 # Saída: Pedidos da mesa 2: 4 refrigerantes
@@ -105,7 +115,8 @@ while True:
     print("\n--- Gerenciamento de Pedidos ---")
     print("1. Registrar Pedido")
     print("2. Fechar Conta")
-    print("3. Encerrar Programa")
+    print("3. Mostrar Faturamento Total")
+    print("4. Encerrar Programa")
 
     opcao = input("Digite o número da opção desejada: ")
 
@@ -114,6 +125,10 @@ while True:
     elif opcao == "2":
         fechar_conta()
     elif opcao == "3":
+        print("=" * 20)
+        print(f"Faturamento total: R${faturamento_total:.2f}")
+        print("=" * 20)
+    elif opcao == "4":
         break
     else:
         print("Opção inválida. Digite novamente.")
