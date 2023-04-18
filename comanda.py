@@ -21,11 +21,9 @@ produtos = {
 # %d, %m, %Y = diretivos
 
 def mostrar_hora():
-    from datetime import date, time, datetime
-    hoje = date.today().strftime('%d/%m/%Y')
-    agora = datetime.now().strftime('%d/%m/%Y %H: %M')
-    print(f'Dia em que a conta foi fechada: {hoje}')
-    print(f"Data e horas atuais da conta: {agora}")
+    from datetime import datetime
+    hora_atual = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+    print(f'Dia e hora em que a conta foi fechada: {hora_atual}')
 
 # Nessa parte, o atendente vai estar criando uma comanda. O programa vai pedir qual é o número da mesa que vai ser registrado, lembrando que estão disponíveis a mesa 1, mesa 2 e mesa 3. 
 # Se o atendente escreveu o número da mesa errado, ele vai pedir para digitar novamente.
@@ -35,13 +33,17 @@ def registrar_pedido():
     while mesa not in mesas:
         mesa = int(input("Mesa não encontrada. Digite novamente o número da mesa: "))
     
+    print("Produtos - Preços")
     for item, preco in produtos.items():
-        print(f"Produtos: {item} - R${preco}")
+        print(f"{item} - R${preco}")
     produto = input("Digite o produto que foi pedido (refrigerante, hamburguer ou hot-dog): ").lower()
 
+    # not mesas[mesa]["pedido"] = not mesas[mesa]["pedido"] == {}
     if not mesas[mesa]["pedido"]:
-        pessoas = int(input("Digite a quantidade de pessoas na mesa: "))
-        mesas[mesa]["pessoas"] = pessoas
+        pessoas = input("Digite a quantidade de pessoas na mesa: ")
+        while not pessoas.isnumeric() or int(pessoas) <= 0:
+            pessoas = input("Valor inválido! Digite novamente a quantidade de pessoas na mesa: ")
+        mesas[mesa]["pessoas"] = int(pessoas)
     
 # Para cada produto que não estiver no dicionário "produtos", o programa não vai reconhecer...
 
@@ -57,6 +59,8 @@ def registrar_pedido():
         mesas[mesa]["pedido"][produto] += quantidade
     else:
         mesas[mesa]["pedido"][produto] = quantidade
+
+
     
 # Essas são as informações do atendente fazendo o pedido em tempo real...
 # Se a mesa "x" pediu 4 refrigerantes, então...
@@ -79,7 +83,10 @@ def fechar_conta():
     while mesa not in mesas:
         mesa = int(input("Mesa não encontrada. Digite novamente o número da mesa: "))
 
-    faturamento_total += mesas[mesa]["total"]
+    faturamento_total = mesas[mesa]["total"]
+
+    # Calcula a divisão da conta por pessoa
+    valor_unitario = faturamento_total / mesas[mesa]["pessoas"]
     
 # Imprime os pedidos totais
 # Saída: Pedidos da mesa 2: 4 refrigerantes
@@ -92,14 +99,20 @@ def fechar_conta():
 # Saída: Total da mesa 2: R$ 6,00
 
     print(f"Total da mesa {mesa}: R${mesas[mesa]['total']:.2f}")
+
+# Imprime o valor dividido por pessoa
+
+    print(f"O valor dividido por pessoa é: R${valor_unitario:.2f}")
     
 # Salva as informações em um arquivo TXT
+
 
     with open("comandas.txt", "a") as arquivo:
         arquivo.write(f"Mesa {mesa}:\n")
         for produto, quantidade in mesas[mesa]["pedido"].items():
             arquivo.write(f"{quantidade} {produto}(s)\n")
         arquivo.write(f"Total: R${mesas[mesa]['total']:.2f}\n\n")
+        arquivo.write(f"Total por pessoa: R${valor_unitario:.2f}")
     
 # Caso a mesa já tenha fechado a conta, o programa vai zerar as informações dela....
 
